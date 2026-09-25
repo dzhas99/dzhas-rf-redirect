@@ -6,6 +6,10 @@ on:
       - ".github/workflows/domain-diagnostics.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: read
+
 jobs:
   diagnose:
     runs-on: ubuntu-latest
@@ -30,6 +34,7 @@ jobs:
           echo "===== GITHUB PAGES API ====="
           curl -sS -L \
             -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ github.token }}" \
             -H "X-GitHub-Api-Version: 2026-03-10" \
             "https://api.github.com/repos/dzhas99/dzhas-rf-redirect/pages" || true
           echo
